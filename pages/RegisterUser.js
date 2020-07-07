@@ -1,27 +1,22 @@
 /*Screen to register the user*/
-import React from 'react';
+import React, {useState} from 'react';
 import {View, ScrollView, KeyboardAvoidingView, Alert} from 'react-native';
 import Mytextinput from './components/Mytextinput';
 import Mybutton from './components/Mybutton';
 import {openDatabase} from 'react-native-sqlite-storage';
 
 var db = openDatabase({name: 'UserDatabase.db'});
-export default class RegisterUser extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user_name: '',
-      user_contact: '',
-      user_address: '',
-    };
-  }
 
-  register_user = () => {
-    var that = this;
-    const {user_name} = this.state;
-    const {user_contact} = this.state;
-    const {user_address} = this.state;
-    //alert(user_name, user_contact, user_address);
+export default function RegisterUser(props) {
+  let [state, setState] = useState({
+    user_name: '',
+    user_contact: '',
+    user_address: '',
+  });
+
+  const register_user = () => {
+    const {user_name, user_contact, user_address} = state;
+
     if (user_name) {
       if (user_contact) {
         if (user_address) {
@@ -38,8 +33,7 @@ export default class RegisterUser extends React.Component {
                     [
                       {
                         text: 'Ok',
-                        onPress: () =>
-                          that.props.navigation.navigate('HomeScreen'),
+                        onPress: () => props.navigation.navigate('HomeScreen'),
                       },
                     ],
                     {cancelable: false},
@@ -61,40 +55,48 @@ export default class RegisterUser extends React.Component {
     }
   };
 
-  render() {
-    return (
-      <View style={{backgroundColor: 'white', flex: 1}}>
-        <ScrollView keyboardShouldPersistTaps="handled">
-          <KeyboardAvoidingView
-            behavior="padding"
-            style={{flex: 1, justifyContent: 'space-between'}}>
-            <Mytextinput
-              placeholder="Enter Name"
-              onChangeText={user_name => this.setState({user_name})}
-              style={{padding: 10}}
-            />
-            <Mytextinput
-              placeholder="Enter Contact No"
-              onChangeText={user_contact => this.setState({user_contact})}
-              maxLength={10}
-              keyboardType="numeric"
-              style={{padding: 10}}
-            />
-            <Mytextinput
-              placeholder="Enter Address"
-              onChangeText={user_address => this.setState({user_address})}
-              maxLength={225}
-              numberOfLines={5}
-              multiline={true}
-              style={{textAlignVertical: 'top', padding: 10}}
-            />
-            <Mybutton
-              title="Submit"
-              customClick={this.register_user.bind(this)}
-            />
-          </KeyboardAvoidingView>
-        </ScrollView>
-      </View>
-    );
-  }
+  const changeName = text => {
+    setState({...state, user_name: text});
+  };
+  const changeContact = text => {
+    setState({...state, user_contact: text});
+  };
+  const changeAddress = text => {
+    setState({...state, user_address: text});
+  };
+
+  return (
+    <View style={{backgroundColor: 'white', flex: 1}}>
+      <ScrollView keyboardShouldPersistTaps="handled">
+        <KeyboardAvoidingView
+          behavior="padding"
+          style={{flex: 1, justifyContent: 'space-between'}}>
+          <Mytextinput
+            placeholder="Enter Name"
+            onChangeText={changeName}
+            value={state.user_name}
+            style={{padding: 10}}
+          />
+          <Mytextinput
+            placeholder="Enter Contact No"
+            onChangeText={changeContact}
+            value={state.user_contact}
+            maxLength={10}
+            keyboardType="numeric"
+            style={{padding: 10}}
+          />
+          <Mytextinput
+            placeholder="Enter Address"
+            onChangeText={changeAddress}
+            value={state.user_address}
+            maxLength={225}
+            numberOfLines={5}
+            multiline={true}
+            style={{textAlignVertical: 'top', padding: 10}}
+          />
+          <Mybutton title="Submit" customClick={register_user} />
+        </KeyboardAvoidingView>
+      </ScrollView>
+    </View>
+  );
 }
