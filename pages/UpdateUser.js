@@ -1,81 +1,68 @@
 /*Screen to update the user*/
-import React from 'react';
-import {
-  View,
-  YellowBox,
-  ScrollView,
-  KeyboardAvoidingView,
-  Alert,
-} from 'react-native';
+import React, {useState} from 'react';
+import {View, ScrollView, KeyboardAvoidingView, Alert} from 'react-native';
 import Mytextinput from './components/Mytextinput';
 import Mybutton from './components/Mybutton';
 import {openDatabase} from 'react-native-sqlite-storage';
 
 var db = openDatabase({name: 'UserDatabase.db'});
 
-export default class UpdateUser extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      input_user_id: '',
-      user_name: '',
-      user_contact: '',
-      user_address: '',
-    };
-  }
+export default function UpdateUser(props) {
+  let [user, setUser] = useState({
+    id: '',
+    name: '',
+    contact: '',
+    address: '',
+  });
 
-  searchUser = () => {
-    const {input_user_id} = this.state;
-    console.log(this.state.input_user_id);
+  const searchUser = () => {
+    const {id} = user;
+    console.log(user.id);
     db.transaction(tx => {
-      tx.executeSql(
-        'SELECT * FROM table_user where user_id = ?',
-        [input_user_id],
-        (tx, results) => {
-          var len = results.rows.length;
-          console.log('len', len);
-          if (len > 0) {
-            console.log(results.rows.item(0).user_contact);
-            this.setState({
-              user_name: results.rows.item(0).user_name,
-            });
-            this.setState({
-              user_contact: results.rows.item(0).user_contact,
-            });
-            this.setState({
-              user_address: results.rows.item(0).user_address,
-            });
-          } else {
-            alert('No user found');
-            this.setState({
-              user_name: '',
-              user_contact: '',
-              user_address: '',
-            });
-          }
-        },
-      );
+      tx.executeSql('SELECT * FROM users where id = ?', [id], (tx, results) => {
+        var len = results.rows.length;
+        console.log('len', len);
+        if (len > 0) {
+          console.log(results.rows.item(0).contact);
+          setUser({
+            ...user,
+            name: results.rows.item(0).name,
+            contact: results.rows.item(0).contact,
+            address: results.rows.item(0).address,
+          });
+
+        } else {
+          alert('No user found');
+          setUser({
+            name: '',
+            contact: '',
+            address: '',
+          });
+        }
+      });
     });
   };
-  updateUser = () => {
-    var that = this;
-    const {input_user_id} = this.state;
-    const {user_name} = this.state;
-    const {user_contact} = this.state;
-    const {user_address} = this.state;
-    if (user_name) {
-      if (user_contact) {
-        if (user_address) {
-          db.transaction((tx) => {
+  const updateUser = () => {
+    let {id, name, contact, address} = user;
+    if (name) {
+      if (contact) {
+        if (address) {
+          db.transaction(tx => {
             tx.executeSql(
-              'UPDATE table_user set user_name=?, user_contact=? , user_address=? where user_id=?',
-              [user_name, user_contact, user_address, input_user_id],
+              'UPDATE users set name=?, contact=? , address=? where id=?',
+              [name, contact, address, id],
               (tx, results) => {
                 console.log('Results', results.rowsAffected);
                 if (results.rowsAffected > 0) {
-                  Alert.alert('Success', 'User updated successfully',
+                  Alert.alert(
+                    'Success',
+                    'User updated successfully',
                     [
-                      {text: 'Ok', onPress: () => that.props.navigation.navigate('HomeScreen')},
+                      {
+                        text: 'Ok',
+                        onPress: () =>
+                          props.navigation.navigate('HomeScreen'),
+                      },
                     ],
                     {cancelable: false},
                   );
@@ -96,52 +83,64 @@ export default class UpdateUser extends React.Component {
     }
   };
 
-  render() {
-    return (
-      <View style={{backgroundColor: 'white', flex: 1}}>
-        <ScrollView keyboardShouldPersistTaps="handled">
-          <KeyboardAvoidingView
-            behavior="padding"
-            style={{flex: 1, justifyContent: 'space-between'}}>
-            <Mytextinput
-              placeholder="Enter User Id"
-              style={{padding: 10}}
-              onChangeText={input_user_id => this.setState({input_user_id})}
-            />
-            <Mybutton
-              title="Search User"
-              customClick={this.searchUser.bind(this)}
-            />
-            <Mytextinput
-              placeholder="Enter Name"
-              value={this.state.user_name}
-              style={{padding: 10}}
-              onChangeText={user_name => this.setState({user_name})}
-            />
-            <Mytextinput
-              placeholder="Enter Contact No"
-              value={'' + this.state.user_contact}
-              onChangeText={user_contact => this.setState({user_contact})}
-              maxLength={10}
-              style={{padding: 10}}
-              keyboardType="numeric"
-            />
-            <Mytextinput
-              value={this.state.user_address}
-              placeholder="Enter Address"
-              onChangeText={user_address => this.setState({user_address})}
-              maxLength={225}
-              numberOfLines={5}
-              multiline={true}
-              style={{textAlignVertical: 'top', padding: 10}}
-            />
-            <Mybutton
-              title="Update User"
-              customClick={this.updateUser.bind(this)}
-            />
-          </KeyboardAvoidingView>
-        </ScrollView>
-      </View>
-    );
-  }
+  const changeName = text => {
+    setUser({...user, name: text});
+  };
+  const changeContact = text => {
+    setUser({...user, contact: text});
+  };
+  const changeAddress = text => {
+    setUser({...user, address: text});
+  };
+  const changeId = text => {
+    setUser({...user, id: text});
+  };
+
+  return (
+    <View style={{backgroundColor: 'white', flex: 1}}>
+      <ScrollView keyboardShouldPersistTaps="handled">
+        <KeyboardAvoidingView
+          behavior="padding"
+          style={{flex: 1, justifyContent: 'space-between'}}>
+          <Mytextinput
+            placeholder="Enter User Id"
+            style={{padding: 10}}
+            value={user.id}
+            onChangeText={changeId}
+          />
+          <Mybutton
+            title="Search User"
+            customClick={searchUser}
+          />
+          <Mytextinput
+            placeholder="Enter Name"
+            value={user.name}
+            style={{padding: 10}}
+            onChangeText={changeName}
+          />
+          <Mytextinput
+            placeholder="Enter Contact No"
+            value={user.contact}
+            onChangeText={changeContact}
+            maxLength={10}
+            style={{padding: 10}}
+            keyboardType="numeric"
+          />
+          <Mytextinput
+            value={user.address}
+            placeholder="Enter Address"
+            onChangeText={changeAddress}
+            maxLength={225}
+            numberOfLines={5}
+            multiline={true}
+            style={{textAlignVertical: 'top', padding: 10}}
+          />
+          <Mybutton
+            title="Update User"
+            customClick={updateUser}
+          />
+        </KeyboardAvoidingView>
+      </ScrollView>
+    </View>
+  );
 }

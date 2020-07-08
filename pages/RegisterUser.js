@@ -8,22 +8,22 @@ import {openDatabase} from 'react-native-sqlite-storage';
 var db = openDatabase({name: 'UserDatabase.db'});
 
 export default function RegisterUser(props) {
-  let [state, setState] = useState({
-    user_name: '',
-    user_contact: '',
-    user_address: '',
+  let [user, setUser] = useState({
+    name: '',
+    contact: '',
+    address: '',
   });
 
   const register_user = () => {
-    const {user_name, user_contact, user_address} = state;
+    const {name, contact, address} = user;
 
-    if (user_name) {
-      if (user_contact) {
-        if (user_address) {
+    if (name) {
+      if (contact) {
+        if (address) {
           db.transaction(function(tx) {
             tx.executeSql(
-              'INSERT INTO table_user (user_name, user_contact, user_address) VALUES (?,?,?)',
-              [user_name, user_contact, user_address],
+              'INSERT INTO users (name, contact, address) VALUES (?,?,?)',
+              [name, contact, address],
               (tx, results) => {
                 console.log('Results', results.rowsAffected);
                 if (results.rowsAffected > 0) {
@@ -56,13 +56,13 @@ export default function RegisterUser(props) {
   };
 
   const changeName = text => {
-    setState({...state, user_name: text});
+    setUser({...user, name: text});
   };
   const changeContact = text => {
-    setState({...state, user_contact: text});
+    setUser({...user, contact: text});
   };
   const changeAddress = text => {
-    setState({...state, user_address: text});
+    setUser({...user, address: text});
   };
 
   return (
@@ -74,13 +74,13 @@ export default function RegisterUser(props) {
           <Mytextinput
             placeholder="Enter Name"
             onChangeText={changeName}
-            value={state.user_name}
+            value={user.name}
             style={{padding: 10}}
           />
           <Mytextinput
             placeholder="Enter Contact No"
             onChangeText={changeContact}
-            value={state.user_contact}
+            value={user.contact}
             maxLength={10}
             keyboardType="numeric"
             style={{padding: 10}}
@@ -88,7 +88,7 @@ export default function RegisterUser(props) {
           <Mytextinput
             placeholder="Enter Address"
             onChangeText={changeAddress}
-            value={state.user_address}
+            value={user.address}
             maxLength={225}
             numberOfLines={5}
             multiline={true}
