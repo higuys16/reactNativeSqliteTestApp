@@ -7,9 +7,10 @@ import {openDatabase} from 'react-native-sqlite-storage';
 import MyButton from './components/MyButton';
 import MyTextInput from './components/MyTextInput';
 import MyView from './styledComponents/MyView';
+import t from '../localization/stringsoflanguages';
 
 var db = openDatabase({name: 'UserDatabase.db'});
-export default function ViewUser(props) {
+export default function ViewUserId(props) {
   let [user, setUser] = useState({
     id: props.navigation.state.params.id,
     name: '',
@@ -49,11 +50,16 @@ export default function ViewUser(props) {
   return (
     <MyView>
       <MyView style={{marginLeft: 35, marginRight: 35, marginTop: 10}}>
-        <Text>User Id: {user.id}</Text>
-        <Text>User Name: {user.name}</Text>
-        <Text>User Contact: {user.contact}</Text>
-        <Text>User Address: {user.address}</Text>
+        <Text>{t.u_id}: {user.id}</Text>
+        <Text>{t.u_name}: {user.name}</Text>
+        <Text>{t.u_contact}: {user.contact}</Text>
+        <Text>{t.u_address}: {user.address}</Text>
       </MyView>
     </MyView>
   );
 }
+
+
+ViewUserId.navigationOptions = () => ({
+  title: t.view,
+});

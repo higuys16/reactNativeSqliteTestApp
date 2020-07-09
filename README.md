@@ -16,6 +16,28 @@ I start my template with [This good template](https://aboutreact.com/example-of-
 
 But this template with `classes` and I remake this to functions
 
+
+## Installed dependences
+
+When download or clone App:
+
+    npm install
+
+All:
+
+    npm install react-navigation --save
+    npm install react-native-gesture-handler react-native-safe-area-context @react-native-community/masked-view react-native-screens react-native-reanimated --save
+    npm install react-navigation-stack --save
+        
+    npm install react-native-localization --save
+
+
 ## Run the app
 
     react-native run-android
+
+## Localization 
+
+- Localization to headers working if header titles are not set inside App.js
+- When used live reload localization is crushed for headers, but in App it will be work.
+- `props.navigation.navigate('Home', {token: '<new token>'});` this `new token` needs to reload screen

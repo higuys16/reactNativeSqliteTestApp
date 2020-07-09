@@ -1,5 +1,5 @@
 /*Screen to view single user*/
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Text} from 'react-native';
 import {openDatabase} from 'react-native-sqlite-storage';
 
@@ -7,15 +7,24 @@ import {openDatabase} from 'react-native-sqlite-storage';
 import MyButton from './components/MyButton';
 import MyTextInput from './components/MyTextInput';
 import MyView from './styledComponents/MyView';
+import t from '../localization/stringsoflanguages';
 
 var db = openDatabase({name: 'UserDatabase.db'});
-export default function ViewUser(props) {
+export default function ViewUser({navigation} = {}) {
   let [user, setUser] = useState({
     id: '',
     name: '',
     contact: '',
     address: '',
   });
+
+
+  let [title, setTitle] = useState('');
+
+  useEffect(() => {
+    navigation.setParams({title: title});
+  }, [title]);
+
   const searchUser = () => {
     const {id} = user;
     console.log(user.id);
@@ -50,21 +59,30 @@ export default function ViewUser(props) {
   return (
     <MyView>
       <MyTextInput
-        placeholder="Enter User Id"
+        placeholder={t.e_id}
         value={user.id}
         onChangeText={changeId}
         style={{padding: 10}}
       />
-      <MyButton
-        title="Search User"
-        onClick={searchUser}
-      />
+      <MyButton title={t.u_search} onClick={searchUser} />
       <MyView style={{marginLeft: 35, marginRight: 35, marginTop: 10}}>
-        <Text>User Id: {user.id}</Text>
-        <Text>User Name: {user.name}</Text>
-        <Text>User Contact: {user.contact}</Text>
-        <Text>User Address: {user.address}</Text>
+        <Text>
+          {t.u_id}: {user.id}
+        </Text>
+        <Text>
+          {t.u_name}: {user.name}
+        </Text>
+        <Text>
+          {t.u_contact}: {user.contact}
+        </Text>
+        <Text>
+          {t.u_address}: {user.address}
+        </Text>
       </MyView>
     </MyView>
   );
 }
+
+ViewUser.navigationOptions = () => ({
+  title: t.view,
+});

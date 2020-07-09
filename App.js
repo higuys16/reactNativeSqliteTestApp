@@ -12,6 +12,7 @@ import ViewUser from './pages/ViewUser';
 import ViewUserId from './pages/ViewUserId';
 import ViewAllUser from './pages/ViewAllUser';
 import DeleteUser from './pages/DeleteUser';
+import LanguageSelectionScreen from './pages/LanguageSelectionScreen';
 
 const headerStyles = {
   backgroundColor: '#f05555',
@@ -20,21 +21,16 @@ const headerStyles = {
 const headerTintColor = '#ffffff';
 
 const App = createStackNavigator({
-  HomeScreen: {
+  Home: {
     screen: HomeScreen,
     navigationOptions: {
-      title: 'HomeScreen',
       headerStyle: headerStyles,
       headerTintColor: headerTintColor,
-      headerTitleStyle: {
-        textAlign: 'center',
-      },
     },
   },
   View: {
     screen: ViewUser,
     navigationOptions: {
-      title: 'View User',
       headerStyle: headerStyles,
       headerTintColor: headerTintColor,
     },
@@ -43,7 +39,6 @@ const App = createStackNavigator({
   ViewId: {
     screen: ViewUserId,
     navigationOptions: {
-      title: 'View User',
       headerStyle: headerStyles,
       headerTintColor: headerTintColor,
     },
@@ -51,7 +46,6 @@ const App = createStackNavigator({
   ViewAll: {
     screen: ViewAllUser,
     navigationOptions: {
-      title: 'View All User',
       headerStyle: headerStyles,
       headerTintColor: headerTintColor,
     },
@@ -59,7 +53,6 @@ const App = createStackNavigator({
   Update: {
     screen: UpdateUser,
     navigationOptions: {
-      title: 'Update User',
       headerStyle: headerStyles,
       headerTintColor: headerTintColor,
     },
@@ -67,7 +60,6 @@ const App = createStackNavigator({
   Register: {
     screen: RegisterUser,
     navigationOptions: {
-      title: 'Register User',
       headerStyle: headerStyles,
       headerTintColor: headerTintColor,
     },
@@ -75,7 +67,13 @@ const App = createStackNavigator({
   Delete: {
     screen: DeleteUser,
     navigationOptions: {
-      title: 'Delete User',
+      headerStyle: headerStyles,
+      headerTintColor: headerTintColor,
+    },
+  },
+  Language: {
+    screen: LanguageSelectionScreen,
+    navigationOptions: {
       headerStyle: headerStyles,
       headerTintColor: headerTintColor,
     },

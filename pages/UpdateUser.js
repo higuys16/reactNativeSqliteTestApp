@@ -8,6 +8,7 @@ var db = openDatabase({name: 'UserDatabase.db'});
 import MyButton from './components/MyButton';
 import MyTextInput from './components/MyTextInput';
 import MyView from './styledComponents/MyView';
+import t from '../localization/stringsoflanguages';
 
 export default function UpdateUser(props) {
   let [user, setUser] = useState({
@@ -34,7 +35,7 @@ export default function UpdateUser(props) {
           });
 
         } else {
-          alert('No user found');
+          alert(t.err_user_not_found);
           setUser({
             name: '',
             contact: '',
@@ -58,30 +59,30 @@ export default function UpdateUser(props) {
                 if (results.rowsAffected > 0) {
                   Alert.alert(
                     'Success',
-                    'User updated successfully',
+                    t.mes_upd_success,
                     [
                       {
                         text: 'Ok',
                         onPress: () =>
-                          props.navigation.navigate('HomeScreen'),
+                          props.navigation.navigate('Home'),
                       },
                     ],
                     {cancelable: false},
                   );
                 } else {
-                  alert('Updation Failed');
+                  alert(t.err_upd_failed);
                 }
               },
             );
           });
         } else {
-          alert('Please fill Address');
+          alert(t.war_reg_address);
         }
       } else {
-        alert('Please fill Contact Number');
+        alert(t.war_reg_contact);
       }
     } else {
-      alert('Please fill Name');
+      alert(t.war_reg_name);
     }
   };
 
@@ -105,23 +106,23 @@ export default function UpdateUser(props) {
           behavior="padding"
           style={{flex: 1, justifyContent: 'space-between'}}>
           <MyTextInput
-            placeholder="Enter User Id"
+            placeholder={t.e_id}
             style={{padding: 10}}
             value={user.id}
             onChangeText={changeId}
           />
           <MyButton
-            title="Search User"
+            title={t.u_search}
             onClick={searchUser}
           />
           <MyTextInput
-            placeholder="Enter Name"
+            placeholder={t.e_name}
             value={user.name}
             style={{padding: 10}}
             onChangeText={changeName}
           />
           <MyTextInput
-            placeholder="Enter Contact No"
+            placeholder={t.e_contact}
             value={user.contact}
             onChangeText={changeContact}
             maxLength={10}
@@ -130,7 +131,7 @@ export default function UpdateUser(props) {
           />
           <MyTextInput
             value={user.address}
-            placeholder="Enter Address"
+            placeholder={t.e_address}
             onChangeText={changeAddress}
             maxLength={225}
             numberOfLines={5}
@@ -138,7 +139,7 @@ export default function UpdateUser(props) {
             style={{textAlignVertical: 'top', padding: 10}}
           />
           <MyButton
-            title="Update User"
+            title={t.u_update}
             onClick={updateUser}
           />
         </KeyboardAvoidingView>
@@ -146,3 +147,7 @@ export default function UpdateUser(props) {
     </MyView>
   );
 }
+
+UpdateUser.navigationOptions = () => ({
+  title: t.update,
+});

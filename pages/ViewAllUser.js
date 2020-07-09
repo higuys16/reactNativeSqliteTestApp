@@ -6,6 +6,7 @@ import {openDatabase} from 'react-native-sqlite-storage';
 //components
 import MyView from './styledComponents/MyView';
 import MyButton from './components/MyButton';
+import t from '../localization/stringsoflanguages';
 
 var db = openDatabase({name: 'UserDatabase.db'});
 export default function ViewAllUser(props) {
@@ -39,13 +40,17 @@ export default function ViewAllUser(props) {
           <MyView
             key={item.user_id}
             style={{backgroundColor: 'white', padding: 20}}>
-            <Text>Id: {item.id}</Text>
-            <Text>Имя: {item.name}</Text>
+            <Text>
+              {t.u_id}: {item.id}
+            </Text>
+            <Text>
+              {t.u_name}: {item.name}
+            </Text>
             {/*<Text>Contact: {item.contact}</Text>*/}
             {/*<Text>Address: {item.address}</Text>*/}
 
             <MyButton
-              title="Show user info"
+              title={t.u_show_info}
               onClick={() => props.navigation.navigate('ViewId', {id: item.id})}
             />
 
@@ -55,3 +60,8 @@ export default function ViewAllUser(props) {
     </MyView>
   );
 }
+
+
+ViewAllUser.navigationOptions = () => ({
+  title: t.view_all,
+});

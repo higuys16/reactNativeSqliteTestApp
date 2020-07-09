@@ -8,7 +8,7 @@ var db = openDatabase({name: 'UserDatabase.db'});
 import MyButton from './components/MyButton';
 import MyTextInput from './components/MyTextInput';
 import MyView from './styledComponents/MyView';
-
+import t from '../localization/stringsoflanguages';
 
 export default function RegisterUser(props) {
   let [user, setUser] = useState({
@@ -32,29 +32,29 @@ export default function RegisterUser(props) {
                 if (results.rowsAffected > 0) {
                   Alert.alert(
                     'Success',
-                    'You are Registered Successfully',
+                    t.mes_reg_success,
                     [
                       {
                         text: 'Ok',
-                        onPress: () => props.navigation.navigate('HomeScreen'),
+                        onPress: () => props.navigation.navigate('Home'),
                       },
                     ],
                     {cancelable: false},
                   );
                 } else {
-                  alert('Registration Failed');
+                  alert(t.err_reg_failed);
                 }
               },
             );
           });
         } else {
-          alert('Please fill Address');
+          alert(t.war_reg_address);
         }
       } else {
-        alert('Please fill Contact Number');
+        alert(t.war_reg_contact);
       }
     } else {
-      alert('Please fill Name');
+      alert(t.war_reg_name);
     }
   };
 
@@ -75,13 +75,13 @@ export default function RegisterUser(props) {
           behavior="padding"
           style={{flex: 1, justifyContent: 'space-between'}}>
           <MyTextInput
-            placeholder="Enter Name"
+            placeholder={t.e_name}
             onChangeText={changeName}
             value={user.name}
             style={{padding: 10}}
           />
           <MyTextInput
-            placeholder="Enter Contact No"
+            placeholder={t.e_contact}
             onChangeText={changeContact}
             value={user.contact}
             maxLength={10}
@@ -89,7 +89,7 @@ export default function RegisterUser(props) {
             style={{padding: 10}}
           />
           <MyTextInput
-            placeholder="Enter Address"
+            placeholder={t.e_address}
             onChangeText={changeAddress}
             value={user.address}
             maxLength={225}
@@ -97,9 +97,13 @@ export default function RegisterUser(props) {
             multiline={true}
             style={{textAlignVertical: 'top', padding: 10}}
           />
-          <MyButton title="Submit" onClick={register_user} />
+          <MyButton title={t.submit} onClick={register_user} />
         </KeyboardAvoidingView>
       </ScrollView>
     </MyView>
   );
 }
+
+RegisterUser.navigationOptions = () => ({
+  title: t.register,
+});

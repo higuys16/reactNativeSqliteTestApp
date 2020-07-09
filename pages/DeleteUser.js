@@ -7,9 +7,10 @@ import {openDatabase} from 'react-native-sqlite-storage';
 import MyButton from './components/MyButton';
 import MyTextInput from './components/MyTextInput';
 import MyView from './styledComponents/MyView';
+import t from '../localization/stringsoflanguages';
 
 var db = openDatabase({name: 'UserDatabase.db'});
-export default function UpdateUser(props) {
+export default function DeleteUser(props) {
   let [user, setUser] = useState({
     id: '',
   });
@@ -22,18 +23,18 @@ export default function UpdateUser(props) {
         if (results.rowsAffected > 0) {
           Alert.alert(
             'Success',
-            'User deleted successfully',
+            t.mes_del_success,
             [
               {
                 text: 'Ok',
-                onPress: () => props.navigation.navigate('HomeScreen'),
+                onPress: () => props.navigation.navigate('Home'),
               },
             ],
             {cancelable: false},
           );
         } else {
           setUser({id: ''});
-          alert('Please insert a valid User Id');
+          alert(t.err_del_failed);
         }
       });
     });
@@ -46,15 +47,19 @@ export default function UpdateUser(props) {
   return (
     <MyView>
       <MyTextInput
-        placeholder="Enter User Id"
+        placeholder={t.e_id}
         value={user.id}
         onChangeText={changeId}
         style={{padding: 10}}
       />
       <MyButton
-        title="Delete User"
+        title={t.u_delete}
         onClick={deleteUser}
       />
     </MyView>
   );
 }
+
+DeleteUser.navigationOptions = () => ({
+  title: t.delete,
+});
