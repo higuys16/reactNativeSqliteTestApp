@@ -1,9 +1,12 @@
 /*Screen to delete the user*/
 import React, {useState} from 'react';
-import {View, Alert} from 'react-native';
-import Mytextinput from './components/Mytextinput';
-import Mybutton from './components/Mybutton';
+import {Alert} from 'react-native';
 import {openDatabase} from 'react-native-sqlite-storage';
+
+//components
+import MyButton from './components/MyButton';
+import MyTextInput from './components/MyTextInput';
+import MyView from './styledComponents/MyView';
 
 var db = openDatabase({name: 'UserDatabase.db'});
 export default function UpdateUser(props) {
@@ -41,17 +44,17 @@ export default function UpdateUser(props) {
   };
 
   return (
-    <View style={{backgroundColor: 'white', flex: 1}}>
-      <Mytextinput
+    <MyView>
+      <MyTextInput
         placeholder="Enter User Id"
         value={user.id}
         onChangeText={changeId}
         style={{padding: 10}}
       />
-      <Mybutton
+      <MyButton
         title="Delete User"
-        customClick={deleteUser}
+        onClick={deleteUser}
       />
-    </View>
+    </MyView>
   );
 }

@@ -1,13 +1,14 @@
 /*Home Screen With buttons to navigate to different options*/
 import React from 'react';
-import {View} from 'react-native';
-import Mybutton from './components/Mybutton';
-import Mytext from './components/Mytext';
 import {openDatabase} from 'react-native-sqlite-storage';
+
+//components
+import MyButton from './components/MyButton';
+import MyText from './components/MyText';
+import MyView from './styledComponents/MyView';
 
 var db = openDatabase({name: 'UserDatabase.db'});
 export default function HomeScreen(props) {
-
   db.transaction(function (txn) {
     txn.executeSql(
       "SELECT name FROM sqlite_master WHERE type='table' AND name='users'",
@@ -25,36 +26,29 @@ export default function HomeScreen(props) {
     );
   });
 
-
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: 'white',
-        flexDirection: 'column',
-      }}>
-      <Mytext text="SQLite Example"/>
-      <Mybutton
+    <MyView>
+      <MyText text="SQLite Example" />
+      <MyButton
         title="Register"
-        customClick={() => props.navigation.navigate('Register')}
+        onClick={() => props.navigation.navigate('Register')}
       />
-      <Mybutton
+      <MyButton
         title="Update"
-        customClick={() => props.navigation.navigate('Update')}
+        onClick={() => props.navigation.navigate('Update')}
       />
-      <Mybutton
+      <MyButton
         title="View"
-        customClick={() => props.navigation.navigate('View')}
+        onClick={() => props.navigation.navigate('View')}
       />
-      <Mybutton
+      <MyButton
         title="View All"
-        customClick={() => props.navigation.navigate('ViewAll')}
+        onClick={() => props.navigation.navigate('ViewAll')}
       />
-      <Mybutton
+      <MyButton
         title="Delete"
-        customClick={() => props.navigation.navigate('Delete')}
+        onClick={() => props.navigation.navigate('Delete')}
       />
-    </View>
+    </MyView>
   );
-
 }

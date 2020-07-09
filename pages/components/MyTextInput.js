@@ -1,21 +1,13 @@
 /*Custom TextInput*/
 import React from 'react';
-import {View, TextInput} from 'react-native';
+import styled from 'styled-components/native';
 
-const Mytextinput = props => {
+const MyTextInput = props => {
   return (
-    <View
-      style={{
-        marginLeft: 35,
-        marginRight: 35,
-        marginTop: 10,
-        borderColor: '#007FFF',
-        borderWidth: 1,
-      }}>
-      <TextInput
+    <ViewS>
+      <TextInputS
         underlineColorAndroid="transparent"
         placeholder={props.placeholder}
-        placeholderTextColor="#007FFF"
         keyboardType={props.keyboardType}
         onChangeText={props.onChangeText}
         returnKeyType={props.returnKeyType}
@@ -26,7 +18,20 @@ const Mytextinput = props => {
         blurOnSubmit={false}
         value={props.value}
       />
-    </View>
+    </ViewS>
   );
 };
-export default Mytextinput;
+
+const TextInputS = styled.TextInput.attrs({
+  placeholderTextColor: '#007FFF',
+})`
+  background-color: #edf6ff;
+  color: #007fff;
+`;
+
+const ViewS = styled.View`
+  margin: 5px 35px;
+  border: solid 1px #007fff;
+`;
+
+export default MyTextInput;

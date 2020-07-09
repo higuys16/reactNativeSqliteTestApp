@@ -1,11 +1,14 @@
 /*Screen to register the user*/
 import React, {useState} from 'react';
-import {View, ScrollView, KeyboardAvoidingView, Alert} from 'react-native';
-import Mytextinput from './components/Mytextinput';
-import Mybutton from './components/Mybutton';
+import {ScrollView, KeyboardAvoidingView, Alert} from 'react-native';
 import {openDatabase} from 'react-native-sqlite-storage';
-
 var db = openDatabase({name: 'UserDatabase.db'});
+
+//components
+import MyButton from './components/MyButton';
+import MyTextInput from './components/MyTextInput';
+import MyView from './styledComponents/MyView';
+
 
 export default function RegisterUser(props) {
   let [user, setUser] = useState({
@@ -66,18 +69,18 @@ export default function RegisterUser(props) {
   };
 
   return (
-    <View style={{backgroundColor: 'white', flex: 1}}>
+    <MyView>
       <ScrollView keyboardShouldPersistTaps="handled">
         <KeyboardAvoidingView
           behavior="padding"
           style={{flex: 1, justifyContent: 'space-between'}}>
-          <Mytextinput
+          <MyTextInput
             placeholder="Enter Name"
             onChangeText={changeName}
             value={user.name}
             style={{padding: 10}}
           />
-          <Mytextinput
+          <MyTextInput
             placeholder="Enter Contact No"
             onChangeText={changeContact}
             value={user.contact}
@@ -85,7 +88,7 @@ export default function RegisterUser(props) {
             keyboardType="numeric"
             style={{padding: 10}}
           />
-          <Mytextinput
+          <MyTextInput
             placeholder="Enter Address"
             onChangeText={changeAddress}
             value={user.address}
@@ -94,9 +97,9 @@ export default function RegisterUser(props) {
             multiline={true}
             style={{textAlignVertical: 'top', padding: 10}}
           />
-          <Mybutton title="Submit" customClick={register_user} />
+          <MyButton title="Submit" onClick={register_user} />
         </KeyboardAvoidingView>
       </ScrollView>
-    </View>
+    </MyView>
   );
 }

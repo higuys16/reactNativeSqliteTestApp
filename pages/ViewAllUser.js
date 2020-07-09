@@ -1,11 +1,13 @@
 /*Screen to view all the user*/
 import React, {useState} from 'react';
-import {FlatList, Text, View} from 'react-native';
+import {FlatList, Text} from 'react-native';
 import {openDatabase} from 'react-native-sqlite-storage';
+
+//components
+import MyView from './styledComponents/MyView';
 
 var db = openDatabase({name: 'UserDatabase.db'});
 export default function ViewAllUser(props) {
-
   let [users, setUsers] = useState([]);
 
   db.transaction(tx => {
@@ -20,27 +22,29 @@ export default function ViewAllUser(props) {
 
   const ListViewItemSeparator = () => {
     return (
-      <View style={{height: 0.2, width: '100%', backgroundColor: '#808080'}}/>
+      <MyView
+        style={{height: 0.2, width: '100%', backgroundColor: '#808080'}}
+      />
     );
   };
 
   return (
-    <View>
+    <MyView>
       <FlatList
         data={users}
         ItemSeparatorComponent={ListViewItemSeparator}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({item}) => (
-          <View
+          <MyView
             key={item.user_id}
             style={{backgroundColor: 'white', padding: 20}}>
             <Text>Id: {item.id}</Text>
             <Text>Имя: {item.name}</Text>
             <Text>Contact: {item.contact}</Text>
             <Text>Address: {item.address}</Text>
-          </View>
+          </MyView>
         )}
       />
-    </View>
+    </MyView>
   );
 }

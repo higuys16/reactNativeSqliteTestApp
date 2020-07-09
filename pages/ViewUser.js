@@ -1,9 +1,12 @@
 /*Screen to view single user*/
 import React, {useState} from 'react';
-import {Text, View} from 'react-native';
-import Mytextinput from './components/Mytextinput';
-import Mybutton from './components/Mybutton';
+import {Text} from 'react-native';
 import {openDatabase} from 'react-native-sqlite-storage';
+
+//components
+import MyButton from './components/MyButton';
+import MyTextInput from './components/MyTextInput';
+import MyView from './styledComponents/MyView';
 
 var db = openDatabase({name: 'UserDatabase.db'});
 export default function ViewUser(props) {
@@ -45,23 +48,23 @@ export default function ViewUser(props) {
   };
 
   return (
-    <View>
-      <Mytextinput
+    <MyView>
+      <MyTextInput
         placeholder="Enter User Id"
         value={user.id}
         onChangeText={changeId}
         style={{padding: 10}}
       />
-      <Mybutton
+      <MyButton
         title="Search User"
-        customClick={searchUser}
+        onClick={searchUser}
       />
-      <View style={{marginLeft: 35, marginRight: 35, marginTop: 10}}>
+      <MyView style={{marginLeft: 35, marginRight: 35, marginTop: 10}}>
         <Text>User Id: {user.id}</Text>
         <Text>User Name: {user.name}</Text>
         <Text>User Contact: {user.contact}</Text>
         <Text>User Address: {user.address}</Text>
-      </View>
-    </View>
+      </MyView>
+    </MyView>
   );
 }

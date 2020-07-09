@@ -1,11 +1,13 @@
 /*Screen to update the user*/
 import React, {useState} from 'react';
-import {View, ScrollView, KeyboardAvoidingView, Alert} from 'react-native';
-import Mytextinput from './components/Mytextinput';
-import Mybutton from './components/Mybutton';
+import {ScrollView, KeyboardAvoidingView, Alert} from 'react-native';
 import {openDatabase} from 'react-native-sqlite-storage';
-
 var db = openDatabase({name: 'UserDatabase.db'});
+
+//components
+import MyButton from './components/MyButton';
+import MyTextInput from './components/MyTextInput';
+import MyView from './styledComponents/MyView';
 
 export default function UpdateUser(props) {
   let [user, setUser] = useState({
@@ -97,28 +99,28 @@ export default function UpdateUser(props) {
   };
 
   return (
-    <View style={{backgroundColor: 'white', flex: 1}}>
+    <MyView>
       <ScrollView keyboardShouldPersistTaps="handled">
         <KeyboardAvoidingView
           behavior="padding"
           style={{flex: 1, justifyContent: 'space-between'}}>
-          <Mytextinput
+          <MyTextInput
             placeholder="Enter User Id"
             style={{padding: 10}}
             value={user.id}
             onChangeText={changeId}
           />
-          <Mybutton
+          <MyButton
             title="Search User"
-            customClick={searchUser}
+            onClick={searchUser}
           />
-          <Mytextinput
+          <MyTextInput
             placeholder="Enter Name"
             value={user.name}
             style={{padding: 10}}
             onChangeText={changeName}
           />
-          <Mytextinput
+          <MyTextInput
             placeholder="Enter Contact No"
             value={user.contact}
             onChangeText={changeContact}
@@ -126,7 +128,7 @@ export default function UpdateUser(props) {
             style={{padding: 10}}
             keyboardType="numeric"
           />
-          <Mytextinput
+          <MyTextInput
             value={user.address}
             placeholder="Enter Address"
             onChangeText={changeAddress}
@@ -135,12 +137,12 @@ export default function UpdateUser(props) {
             multiline={true}
             style={{textAlignVertical: 'top', padding: 10}}
           />
-          <Mybutton
+          <MyButton
             title="Update User"
-            customClick={updateUser}
+            onClick={updateUser}
           />
         </KeyboardAvoidingView>
       </ScrollView>
-    </View>
+    </MyView>
   );
 }
