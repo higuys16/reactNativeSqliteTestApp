@@ -9,6 +9,7 @@ import HomeScreen from './pages/HomeScreen';
 import RegisterUser from './pages/RegisterUser';
 import UpdateUser from './pages/UpdateUser';
 import ViewUser from './pages/ViewUser';
+import ViewUserId from './pages/ViewUserId';
 import ViewAllUser from './pages/ViewAllUser';
 import DeleteUser from './pages/DeleteUser';
 
@@ -32,6 +33,15 @@ const App = createStackNavigator({
   },
   View: {
     screen: ViewUser,
+    navigationOptions: {
+      title: 'View User',
+      headerStyle: headerStyles,
+      headerTintColor: headerTintColor,
+    },
+  },
+
+  ViewId: {
+    screen: ViewUserId,
     navigationOptions: {
       title: 'View User',
       headerStyle: headerStyles,
