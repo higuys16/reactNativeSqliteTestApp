@@ -7,6 +7,8 @@ import {openDatabase} from 'react-native-sqlite-storage';
 import MyView from './styledComponents/MyView';
 import MyButton from './components/MyButton';
 import t from '../localization/stringsoflanguages';
+import {primary} from '../variables/colors';
+import MyText from './styledComponents/MyText';
 
 var db = openDatabase({name: 'UserDatabase.db'});
 export default function ViewAllUser(props) {
@@ -39,13 +41,13 @@ export default function ViewAllUser(props) {
         renderItem={({item}) => (
           <MyView
             key={item.user_id}
-            style={{backgroundColor: 'white', padding: 20}}>
-            <Text>
+            style={{backgroundColor: primary.background, padding: 20}}>
+            <MyText>
               {t.u_id}: {item.id}
-            </Text>
-            <Text>
+            </MyText>
+            <MyText>
               {t.u_name}: {item.name}
-            </Text>
+            </MyText>
             {/*<Text>Contact: {item.contact}</Text>*/}
             {/*<Text>Address: {item.address}</Text>*/}
 

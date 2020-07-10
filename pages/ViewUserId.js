@@ -4,10 +4,9 @@ import {Text} from 'react-native';
 import {openDatabase} from 'react-native-sqlite-storage';
 
 //components
-import MyButton from './components/MyButton';
-import MyTextInput from './components/MyTextInput';
 import MyView from './styledComponents/MyView';
 import t from '../localization/stringsoflanguages';
+import MyText from './styledComponents/MyText';
 
 var db = openDatabase({name: 'UserDatabase.db'});
 export default function ViewUserId(props) {
@@ -50,10 +49,10 @@ export default function ViewUserId(props) {
   return (
     <MyView>
       <MyView style={{marginLeft: 35, marginRight: 35, marginTop: 10}}>
-        <Text>{t.u_id}: {user.id}</Text>
-        <Text>{t.u_name}: {user.name}</Text>
-        <Text>{t.u_contact}: {user.contact}</Text>
-        <Text>{t.u_address}: {user.address}</Text>
+        <MyText>{t.u_id}: {user.id}</MyText>
+        <MyText>{t.u_name}: {user.name}</MyText>
+        <MyText>{t.u_contact}: {user.contact}</MyText>
+        <MyText>{t.u_address}: {user.address}</MyText>
       </MyView>
     </MyView>
   );

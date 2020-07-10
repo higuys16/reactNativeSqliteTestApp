@@ -1,6 +1,7 @@
 /*Custom TextInput*/
 import React from 'react';
 import styled from 'styled-components/native';
+import {primary} from '../../variables/colors';
 
 const MyTextInput = props => {
   return (
@@ -23,15 +24,15 @@ const MyTextInput = props => {
 };
 
 const TextInputS = styled.TextInput.attrs({
-  placeholderTextColor: '#007FFF',
+  placeholderTextColor: primary.placeholder,
 })`
-  background-color: #edf6ff;
-  color: #007fff;
+  background-color: ${primary.input};
+  color: ${primary.background};
 `;
 
 const ViewS = styled.View`
-  margin: 5px 35px;
-  border: solid 1px #007fff;
+  margin: 5px;
+  border: solid 2px ${primary.border};
 `;
 
 export default MyTextInput;

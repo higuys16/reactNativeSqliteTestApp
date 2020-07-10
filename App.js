@@ -13,12 +13,13 @@ import ViewUserId from './pages/ViewUserId';
 import ViewAllUser from './pages/ViewAllUser';
 import DeleteUser from './pages/DeleteUser';
 import LanguageSelectionScreen from './pages/LanguageSelectionScreen';
+import {primary} from './variables/colors';
 
 const headerStyles = {
-  backgroundColor: '#f05555',
+  backgroundColor: primary.header,
   height: 45,
 };
-const headerTintColor = '#ffffff';
+const headerTintColor = primary.text;
 
 const App = createStackNavigator({
   Home: {

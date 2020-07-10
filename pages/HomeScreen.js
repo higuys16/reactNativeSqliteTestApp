@@ -5,7 +5,7 @@ import t from '../localization/stringsoflanguages';
 
 //components
 import MyButton from './components/MyButton';
-import MyText from './components/MyText';
+import MyText from './styledComponents/MyText';
 import MyView from './styledComponents/MyView';
 
 var db = openDatabase({name: 'UserDatabase.db'});
@@ -30,7 +30,7 @@ export default function HomeScreen(props) {
   });
   return (
     <MyView>
-      <MyText text={t.sql_ex} />
+      <MyText>{t.sql_ex}</MyText>
       <MyButton
         title={t.register}
         onClick={() => props.navigation.navigate('Register')}

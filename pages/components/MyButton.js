@@ -1,6 +1,7 @@
 /*Custom Button*/
 import React from 'react';
 import styled from 'styled-components/native';
+import {primary} from '../../variables/colors';
 
 const MyButton = props => {
   return (
@@ -12,14 +13,15 @@ const MyButton = props => {
 
 const TouchableOpacityS = styled.TouchableOpacity`
   align-items: center;
-  background-color: #f05555;
-  color: #ffffff;
+  background-color: ${primary.button};
+  border-radius: 5px;
+  border: solid 1px ${primary.border};
   padding: 10px;
-  margin: 8px 35px 8px 35px;
+  margin: 5px;
 `;
 
 const TextS = styled.Text`
-  color: #ffffff;
+  color: ${primary.border};
   font-weight: bold;
 `;
 

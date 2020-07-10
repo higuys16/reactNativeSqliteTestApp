@@ -8,6 +8,7 @@ import MyButton from './components/MyButton';
 import MyTextInput from './components/MyTextInput';
 import MyView from './styledComponents/MyView';
 import t from '../localization/stringsoflanguages';
+import MyText from './styledComponents/MyText';
 
 var db = openDatabase({name: 'UserDatabase.db'});
 export default function ViewUser({navigation} = {}) {
@@ -66,18 +67,18 @@ export default function ViewUser({navigation} = {}) {
       />
       <MyButton title={t.u_search} onClick={searchUser} />
       <MyView style={{marginLeft: 35, marginRight: 35, marginTop: 10}}>
-        <Text>
+        <MyText>
           {t.u_id}: {user.id}
-        </Text>
-        <Text>
+        </MyText>
+        <MyText>
           {t.u_name}: {user.name}
-        </Text>
-        <Text>
+        </MyText>
+        <MyText>
           {t.u_contact}: {user.contact}
-        </Text>
-        <Text>
+        </MyText>
+        <MyText>
           {t.u_address}: {user.address}
-        </Text>
+        </MyText>
       </MyView>
     </MyView>
   );
