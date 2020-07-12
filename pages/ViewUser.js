@@ -1,11 +1,10 @@
 /*Screen to view single user*/
 import React, {useState, useEffect} from 'react';
-import {Text} from 'react-native';
 import {openDatabase} from 'react-native-sqlite-storage';
 
 //components
 import MyButton from './components/MyButton';
-import MyTextInput from './components/MyTextInput';
+import MyTextInput from './styledComponents/MyTextInput';
 import MyView from './styledComponents/MyView';
 import t from '../localization/stringsoflanguages';
 import MyText from './styledComponents/MyText';

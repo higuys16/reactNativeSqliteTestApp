@@ -1,12 +1,12 @@
 /*Screen to register the user*/
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import {ScrollView, KeyboardAvoidingView, Alert} from 'react-native';
 import {openDatabase} from 'react-native-sqlite-storage';
 var db = openDatabase({name: 'UserDatabase.db'});
 
 //components
 import MyButton from './components/MyButton';
-import MyTextInput from './components/MyTextInput';
+import MyTextInput from './styledComponents/MyTextInput';
 import MyView from './styledComponents/MyView';
 import t from '../localization/stringsoflanguages';
 
@@ -68,6 +68,9 @@ export default function RegisterUser(props) {
     setUser({...user, address: text});
   };
 
+  const ref_contact = useRef();
+  const ref_address = useRef();
+
   return (
     <MyView>
       <ScrollView keyboardShouldPersistTaps="handled">
@@ -79,6 +82,7 @@ export default function RegisterUser(props) {
             onChangeText={changeName}
             value={user.name}
             style={{padding: 10}}
+            onSubmitEditing={() => ref_contact.current.focus()}
           />
           <MyTextInput
             placeholder={t.e_contact}
@@ -87,6 +91,8 @@ export default function RegisterUser(props) {
             maxLength={10}
             keyboardType="numeric"
             style={{padding: 10}}
+            onSubmitEditing={() => ref_address.current.focus()}
+            ref={ref_contact}
           />
           <MyTextInput
             placeholder={t.e_address}
@@ -96,6 +102,7 @@ export default function RegisterUser(props) {
             numberOfLines={5}
             multiline={true}
             style={{textAlignVertical: 'top', padding: 10}}
+            ref={ref_address}
           />
           <MyButton title={t.submit} onClick={register_user} />
         </KeyboardAvoidingView>

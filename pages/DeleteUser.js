@@ -5,7 +5,7 @@ import {openDatabase} from 'react-native-sqlite-storage';
 
 //components
 import MyButton from './components/MyButton';
-import MyTextInput from './components/MyTextInput';
+import MyTextInput from './styledComponents/MyTextInput';
 import MyView from './styledComponents/MyView';
 import t from '../localization/stringsoflanguages';
 

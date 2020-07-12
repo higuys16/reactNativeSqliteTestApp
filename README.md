@@ -28,6 +28,8 @@ All:
     npm install react-navigation --save
     npm install react-native-gesture-handler react-native-safe-area-context @react-native-community/masked-view react-native-screens react-native-reanimated --save
     npm install react-navigation-stack --save
+    npm install --save styled-components
+    npm install react-native-sqlite-storage --save
         
     npm install react-native-localization --save
 
@@ -41,3 +43,9 @@ All:
 - Localization to headers working if header titles are not set inside App.js
 - When used live reload localization is crushed for headers, but in App it will be work.
 - `props.navigation.navigate('Home', {token: '<new token>'});` this `new token` needs to reload screen
+
+## Errors can be prevented
+
+- ref - this prop of object returns from inside component and doesn't work with custom components,
+because in custom components, like the `paages/components/MyButton` component, app props of this components for only read. 
+

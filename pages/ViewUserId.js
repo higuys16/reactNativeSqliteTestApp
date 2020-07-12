@@ -1,6 +1,5 @@
 /*Screen to view single user*/
 import React, {useState} from 'react';
-import {Text} from 'react-native';
 import {openDatabase} from 'react-native-sqlite-storage';
 
 //components

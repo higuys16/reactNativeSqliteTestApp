@@ -1,6 +1,6 @@
 /*Screen to view all the user*/
 import React, {useState} from 'react';
-import {FlatList, Text} from 'react-native';
+import {FlatList} from 'react-native';
 import {openDatabase} from 'react-native-sqlite-storage';
 
 //components

@@ -1,12 +1,12 @@
 /*Screen to update the user*/
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {ScrollView, KeyboardAvoidingView, Alert} from 'react-native';
 import {openDatabase} from 'react-native-sqlite-storage';
 var db = openDatabase({name: 'UserDatabase.db'});
 
 //components
 import MyButton from './components/MyButton';
-import MyTextInput from './components/MyTextInput';
+import MyTextInput from './styledComponents/MyTextInput';
 import MyView from './styledComponents/MyView';
 import t from '../localization/stringsoflanguages';
 
@@ -99,6 +99,9 @@ export default function UpdateUser(props) {
     setUser({...user, id: text});
   };
 
+  const ref_contact = useRef();
+  const ref_address = useRef();
+
   return (
     <MyView>
       <ScrollView keyboardShouldPersistTaps="handled">
@@ -120,6 +123,7 @@ export default function UpdateUser(props) {
             value={user.name}
             style={{padding: 10}}
             onChangeText={changeName}
+            onSubmitEditing={() => ref_contact.current.focus()}
           />
           <MyTextInput
             placeholder={t.e_contact}
@@ -128,6 +132,8 @@ export default function UpdateUser(props) {
             maxLength={10}
             style={{padding: 10}}
             keyboardType="numeric"
+            onSubmitEditing={() => ref_address.current.focus()}
+            ref={ref_contact}
           />
           <MyTextInput
             value={user.address}
@@ -137,6 +143,7 @@ export default function UpdateUser(props) {
             numberOfLines={5}
             multiline={true}
             style={{textAlignVertical: 'top', padding: 10}}
+            ref={ref_address}
           />
           <MyButton
             title={t.u_update}
